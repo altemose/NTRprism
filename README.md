@@ -1,8 +1,7 @@
 # README for NTRprism scripts v0.11
 Nicolas Altemose, 2021
-- purpose: to discover repeat periodicity in large tandem repeat arrays
+- purpose: creates a Nested Tandem Repeat (NTR) "spectrum" indicating the most abundant tandem repeat periodicities found in an input DNA sequence
 - summary: takes a DNA sequence in fasta format as input and decomposes it into inter-k-mer intervals then combines interval length distributions across k-mers, and plots the results
-
 
 ## Required files
 - NTRprism_ProcessFasta_v0.11.pl
