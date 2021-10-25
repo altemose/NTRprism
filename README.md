@@ -53,8 +53,8 @@ done
 ## Full test run
 using provided test.fa file (beta satellite from chr1 and chr9, with 68 bp and 2596 bp units)
 ```
-perl NTRprism_ProcessFasta_v0.11.pl test.fa NTRprism_TEST 1 5000 30 6
 perl NTRprism_ProcessFasta_v0.11.pl test.fa NTRprism_TEST 100 5000 30 6
+perl NTRprism_ProcessFasta_v0.11.pl test.fa NTRprism_TEST 1 5000 30 6
 for i in *.bin1.txt;do
 	j=$(perl -lae 'if(m/region_(.+)\.span/){print "$1"}' <(echo $i)) #automatically extract region name from filename
 	Rscript NTRprism_PlotSpectrum.r --args $i $j 5000 NTRprism_TEST
