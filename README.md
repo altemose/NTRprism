@@ -19,7 +19,7 @@ e.g. use samtools faidx to extract regions from a reference genome
 ### Step 2) run perl script to generate human readable tables
 - usage: perl NTRprism_ProcessFasta_v0.11.pl region_fasta_file_path[REQUIRED] output_prefix[NTRspectrum] bin_size[1] total_span[30000] kmer_min_count[10] kmer_length[6]
 - outputs: produces one output file per region of the format: OUTPUT_PREFIX.regionREGION_NAME_FROM_FASTA_HEADER.spanTOTAL_SPAN.kKMER_LENGTH.mincountKMER_MINCOUNT.binBIN_SIZE.txt
-- also outputs a reference.binsize.NTRprism_TopHits.txt file, with one line per fasta entry listing the entry's header and top 10 peaks (one per column, e.g. column 2 lists the largest peak) 
+- also outputs a *REFERENCE.BINSIZE.NTRprism_TopHits.txt* file, with one line per fasta entry listing the entry's header and top 10 peaks (one per column, e.g. column 2 lists the largest peak) 
 - note 1: I usually run with both bin size 1 (better for spectrum) and bin size 100 (better for heatmap). for example:
 - note 2: the method can be sensitive to the choice of kmer_min_count. a value should be chosen that allows for sufficiently granular interval length distribution inference, i.e. setting this value too low will flood the combined distribution with rare k-mers that may only have a few intervals in the entire sequence and setting it too high will discard k-mers that occur with a frequency proportional to the true predominant repeat unit length
 - note 3: using k=6 is sufficient to detect most peri/centromeric satellite periodicities in the human genome. Increasing k may improve sensitivity to very long periodicities but increases memory complexity.
