@@ -59,13 +59,12 @@ if(defined $ARGV[5]){
 
 my $tophitsfile = "";
 if($fastafile=~/.+\/(.+)\..+?$/){
-	$tophitsfile = "$1_$binsize_NTRprism_TopHits.txt";
+	$tophitsfile = "$1.$binsize.NTRprism_TopHits.txt";
 }elsif($fastafile=~/^(.+)\..+?$/){
-	$tophitsfile = "$1_$binsize_NTRprism_TopHits.txt";
+	$tophitsfile = "$1.$binsize.NTRprism_TopHits.txt";
 }else{
-	$tophitsfile = "$fastafile_$binsize_NTRprism_TopHits.txt";
+	$tophitsfile = "$fastafile.$binsize.NTRprism_TopHits.txt";
 }
-
 
 open(TOP,'>'.$tophitsfile);
 #my $finalstring="";
