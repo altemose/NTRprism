@@ -106,7 +106,7 @@ while(c < length(sorted)){ #loop through all observed k-mers
 	last if(count < m)
 	c++
 }
-
+ColSums=ColSums/c #normalize column sums by the total number of k-mers above the threshold m
 Lmatrix = L[sorted[0:c]] #create a matrix from L with each row corresponding to a k-mer above the count threshold m, sorted by decreasing frequency, and each column corresponding to an interval length
 print(Lmatrix) #print the normalized, sorted, thresholded matrix to an output file
 heatmap(Lmatrix) #plot the matrix as a heatmap
