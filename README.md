@@ -103,11 +103,11 @@ while(c < length(sorted)){ #loop through all observed k-mers
 		ColSums[i] = ColSums[i] + L[j][i] #pairwise add each interval length's normalized value to the column sums array
 		i++
 	}
-	c++
 	last if(count < m)
+	c++
 }
 
-Lmatrix = L[sorted[1:c]] #create a matrix from L with each row corresponding to a k-mer above the count threshold m, sorted by decreasing frequency, and each column corresponding to an interval length
+Lmatrix = L[sorted[0:c]] #create a matrix from L with each row corresponding to a k-mer above the count threshold m, sorted by decreasing frequency, and each column corresponding to an interval length
 print(Lmatrix) #print the normalized, sorted, thresholded matrix to an output file
 heatmap(Lmatrix) #plot the matrix as a heatmap
 barplot(ColSums) #plot ColSums as a barplot to produce an NTR spectrum plot
