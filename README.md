@@ -88,9 +88,11 @@ while(i < s-k){   #loop through all substrings of length k in the sequence
 	K[j]=i #store the current occurrence's position
 	i++
 }
+sorted = sort(j in L, sum(L[j]), descending) #create an array of all observed k-mers in descending order of their frequency in S
 
 ColSums = array(0,l+1) #initialize an array of 0s to store normalized column sums [0-based indexing]
-foreach(j in L){ #loop through all observed k-mers
+c=0
+foreach(j in sorted){ #loop through all observed k-mers
 	count = sum(L[j])+1 #report the number of occurrences of j as the number of intervals +1
 	if(count >= m){
 		L[j] = L[j]/(count-1) #normalize each k-mer's interval count array to sum to 1
@@ -100,10 +102,14 @@ foreach(j in L){ #loop through all observed k-mers
 		ColSums[i] = ColSums[i] + L[j][i] #pairwise add each interval length's normalized value to the column sums array
 		i++
 	}
+	c++
+	last if(count < m)
 }
 
-print(L) #printing the full matrix L to an output file allows for heatmap plotting later
-barplot(ColSums) #plotting ColSums as a barplot will produce an NTR spectrum plot
+Lmatrix = L[sorted[1:c]] #create a matrix from L with each row corresponding to a k-mer above the count threshold m, sorted by decreasing frequency, and each column corresponding to an interval length
+print(Lmatrix) #print the normalized, sorted, thresholded matrix to an output file
+heatmap(Lmatrix) #plot the matrix as a heatmap
+barplot(ColSums) #plot ColSums as a barplot to produce an NTR spectrum plot
 
 TopPeak = argmax(ColSums)+1
 return(TopPeak) #report the most common repeat periodicity
