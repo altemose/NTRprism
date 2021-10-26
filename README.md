@@ -67,7 +67,7 @@ done
 ## Pseudocode
 ```
 Let S be a string of [ACGT] of length s.
-Let S[i,i+k-1] be the substring of S starting at 0-based index i, and having length k.
+Let S[i:i+k-1] be the substring of S starting at 0-based index i, and having length k.
 Let K be a dictionary of k-mers, used to store the last observed position of each k-mer.
 Let j be a particular k-mer of length k.
 Let L be a dictionary of k-mers, with each entry L[j] as an array of 0s of length l+1 [0-based indexing], with l equal to the longest allowed repeat periodicity.
@@ -75,7 +75,7 @@ Let m be the threshold for minimum observed k-mer count [default 2].
 
 i=0
 while(i < s-k){   #loop through all substrings of length k in the sequence
-	j = S[i,i+k-1] 
+	j = S[i:i+k-1] 
 	if(exists L[j]){ #if this particular k-mer j has been seen before, record the interval length between the last occurrence and this occurrence
 		interval = i-K[j] 
 		if(interval > l+1){ #if the interval is longer than the maximum span l, store it as l+1
@@ -112,7 +112,7 @@ print(Lmatrix) #print the normalized, sorted, thresholded matrix to an output fi
 heatmap(Lmatrix) #plot the matrix as a heatmap
 barplot(ColSums) #plot ColSums as a barplot to produce an NTR spectrum plot
 
-TopPeak = argmax(ColSums)+1
+TopPeak = argmax(ColSums[0:l])+1
 return(TopPeak) #report the most common repeat periodicity
 ```
 
