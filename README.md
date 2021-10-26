@@ -102,6 +102,7 @@ foreach(j in L){ #loop through all observed k-mers
 	}
 }
 
+print(L) #printing the full matrix L to an output file allows for heatmap plotting later
 barplot(ColSums) #plotting ColSums as a barplot will produce an NTR spectrum plot
 
 TopPeak = argmax(ColSums)+1
