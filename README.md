@@ -102,8 +102,9 @@ foreach(j in L){ #loop through all observed k-mers
 	}
 }
 
-TopPeak = argmax(ColSums)+1
+barplot(ColSums) #plotting ColSums as a barplot will produce an NTR spectrum plot
 
-return(TopPeak)
+TopPeak = argmax(ColSums)+1
+return(TopPeak) #report the most common repeat periodicity
 ```
 
