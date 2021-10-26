@@ -92,7 +92,8 @@ sorted = sort(j in L, sum(L[j]), descending) #create an array of all observed k-
 
 ColSums = array(0,l+1) #initialize an array of 0s to store normalized column sums [0-based indexing]
 c=0
-foreach(j in sorted){ #loop through all observed k-mers
+while(c < length(sorted)){ #loop through all observed k-mers
+	j = sorted[c]
 	count = sum(L[j])+1 #report the number of occurrences of j as the number of intervals +1
 	if(count >= m){
 		L[j] = L[j]/(count-1) #normalize each k-mer's interval count array to sum to 1
