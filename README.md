@@ -1,7 +1,7 @@
 # README for NTRprism scripts v0.11
 Nicolas Altemose, 2021
 - purpose: creates a Nested Tandem Repeat (NTR) "spectrum" indicating the most abundant tandem repeat periodicities found in an input DNA sequence
-- summary: takes a DNA sequence in fasta format as input and decomposes it into inter-k-mer intervals then combines interval length distributions across k-mers, and plots the results
+- summary: takes a DNA sequence in fasta format as input and decomposes it into inter-k-mer intervals then combines interval length distributions across k-mers, and plots the results (see pseudocode below)
 
 ## Required files
 - NTRprism_ProcessFasta_v0.11.pl
@@ -62,5 +62,48 @@ for i in *.bin100.txt;do
 	j=$(perl -lae 'if(m/region_(.+)\.span/){print "$1"}' <(echo $i))
 	Rscript NTRprism_PlotHeatmap.r --args $i $j 5000 100 NTRprism_TEST
 done
+```
+
+## Pseudocode
+```
+Let S be a string of [ACGT] of length s.
+Let S[i,i+k-1] be the substring of S starting at 0-based index i, and having length k.
+Let K be a dictionary of k-mers, used to store the last observed position of each k-mer.
+Let j be a particular k-mer of length k.
+Let L be a dictionary of k-mers, with each entry L[j] as an array of 0s of length l+1 [0-based indexing], with l equal to the longest allowed repeat periodicity.
+Let m be the threshold for minimum observed k-mer count [default 2].
+
+i=0
+while(i < s-k){   #loop through all substrings of length k in the sequence
+	j = S[i,i+k-1] 
+	if(exists C[j]){ #if this particular k-mer j has been seen before, record the interval length between the last occurrence and this occurrence
+		interval = i-K[j] 
+		if(interval > l+1){ #if the interval is longer than the maximum span l, store it as l+1
+			interval = l+1
+		}
+		L[j][interval-1]++
+	}else{ #if this is the first occurrence of the k-mer j, initialize its interval length count array
+		L[j]=array(0,l+1)
+	}
+	K[j]=i #store the current occurrence's position
+	i++
+}
+
+ColSums = array(0,l+1) #initialize an array of 0s to store normalized column sums [0-based indexing]
+foreach(j in L){ #loop through all observed k-mers
+	count = sum(L[j])+1 #report the number of occurrences of j as the number of intervals +1
+	if(count >= m){
+		L[j] = L[j]/(count-1) #normalize each k-mer's interval count array to sum to 1
+	}
+	i=0
+	while(i<l+1){
+		ColSums[i] = ColSums[i] + L[j][i] #pairwise add each interval length's normalized value to the column sums array
+		i++
+	}
+}
+
+TopPeak = argmax(ColSums)+1
+
+return(TopPeak)
 ```
 
