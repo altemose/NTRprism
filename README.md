@@ -76,7 +76,7 @@ Let m be the threshold for minimum observed k-mer count [default 2].
 i=0
 while(i < s-k){   #loop through all substrings of length k in the sequence
 	j = S[i,i+k-1] 
-	if(exists C[j]){ #if this particular k-mer j has been seen before, record the interval length between the last occurrence and this occurrence
+	if(exists L[j]){ #if this particular k-mer j has been seen before, record the interval length between the last occurrence and this occurrence
 		interval = i-K[j] 
 		if(interval > l+1){ #if the interval is longer than the maximum span l, store it as l+1
 			interval = l+1
