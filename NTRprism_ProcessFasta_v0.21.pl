@@ -7,7 +7,7 @@ srand(0);
 my $tic = time;
 print "\n\n";
 
-my $usage = "usage: perl NTRprism_ProcessFasta_v0.11.pl region_fasta_file_path[REQUIRED] output_prefix[NTRspectrum] bin_size[1] total_span[30000] kmer_min_count[10] kmer_length[6]\n";
+my $usage = "usage: perl NTRprism_ProcessFasta_v0.21.pl region_fasta_file_path[REQUIRED] output_prefix[NTRspectrum] bin_size[1] total_span[30000] kmer_min_count[10] kmer_length[6]\n";
 
 #initialize parameters and hardcode defaults
 my $fastafile = "";#fasta file containing sequences to analyze
