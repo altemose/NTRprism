@@ -115,7 +115,9 @@ i=0 #increment column sums
 	c++
 }
 ColSums=ColSums/c #normalize col. sums by the tot. no. of k-mers above thresh. t
-Lmat = L[sorted[0:c]] #create a matrix from L with each row corresponding to a k-mer above the count threshold m, sorted by decreasing frequency, and each column corresponding to an interval length
+Lmat = L[sorted[0:c]] #create a matrix from L with each row corresponding to a k-mer 
+#above the count threshold m, sorted by decreasing frequency, 
+#and each column corresponding to an interval length
 print(Lmat) #print the normalized, sorted, thresholded matrix
 heatmap(Lmat) #plot the matrix as a heatmap
 barplot(ColSums) #plot ColSums as a barplot to produce an NTR spectrum plot
