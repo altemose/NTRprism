@@ -99,12 +99,12 @@ while(c < length(sorted)){ #loop through all observed k-mers
 	if(count >= m){
 		L[j] = L[j]/(count-1) #normalize each k-mer's interval count array to sum to 1
 	}
+	last if(count < m)
 	i=0
 	while(i<l+1){
 		ColSums[i] = ColSums[i] + L[j][i] #pairwise add each interval length's normalized value to the column sums array
 		i++
 	}
-	last if(count < m)
 	c++
 }
 ColSums=ColSums/c #normalize column sums by the total number of k-mers above the threshold m
