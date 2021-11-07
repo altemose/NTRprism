@@ -67,53 +67,60 @@ done
 
 ## Pseudocode
 ```
+NTRprism pseudocode
 Let S be a string of [ACGT] of length s.
-Let S[i:i+k-1] be the substring of S starting at 0-based index i, and having length k.
-Let K be a dictionary of k-mers, used to store the last observed position of each k-mer.
+Let S[i:i+k-1] be the substring of S starting at 0-based index i, 
+    and having length k.
+Let K be a dictionary of k-mers, used to store the last observed
+    position of each k-mer.
 Let j be a particular k-mer of length k.
-Let L be a dictionary of k-mers, with each entry L[j] as an array of 0s of length l+1 [0-based indexing], with l equal to the longest allowed repeat periodicity.
-Let m be the threshold for minimum observed k-mer count [default 2].
+Let L be a dictionary of k-mers, with each entry L[j] as an array of 
+    0s of length m+1 [0-based indexing], with m equal to the longest 
+    allowed repeat periodicity.
+Let t be the threshold for minimum observed k-mer count [default 2].
 
 i=0
-while(i < s-k){   #loop through all substrings of length k in the sequence
+while(i < s-k){ #loop through all substrings of length k in the sequence  
 	j = S[i:i+k-1] 
-	if(exists L[j]){ #if this particular k-mer j has been seen before, record the interval length between the last occurrence and this occurrence
+	if(exists L[j]){ #if this particular k-mer j has been seen before, record the  
+                    interval length between the last occurrence and this occurrence
 		interval = i-K[j] 
-		if(interval > l+1){ #if the interval is longer than the maximum span l, store it as l+1
-			interval = l+1
+		if(interval > m+1){ #if longer than the max span m, store it as m+1
+			interval = m+1
 		}
-		L[j][interval-1]++
-	}else{ #if this is the first occurrence of the k-mer j, initialize its interval length count array
-		L[j]=array(0,l+1)
+		L[j][interval-1]++ #increment the interval length’s count in j’s array
+	}else{ #if this is the first occurrence of j, initialize its count array
+		L[j]=array(0,m+1)
 	}
 	K[j]=i #store the current occurrence's position
 	i++
 }
-sorted = sort(j in L, sum(L[j]), descending) #create an array of all observed k-mers in descending order of their frequency in S
+sorted = sort(j in L, sum(L[j]), descending) #create an array of all observed k-mers       
+                                         in descending order of their frequency in S
 
-ColSums = array(0,l+1) #initialize an array of 0s to store normalized column sums [0-based indexing]
+ColSums = array(0,m+1) #initialize an array of 0s to store normalized column sums
 c=0
 while(c < length(sorted)){ #loop through all observed k-mers
 	j = sorted[c]
-	count = sum(L[j])+1 #report the number of occurrences of j as the number of intervals +1
-	if(count >= m){
-		L[j] = L[j]/(count-1) #normalize each k-mer's interval count array to sum to 1
+	count = sum(L[j])+1 #report the count of j as the number of intervals +1
+	if(count >= t){
+		L[j] = L[j]/(count-1) #normalize interval count array to sum to 1
 	}
-	last if(count < m)
-	i=0
-	while(i<l+1){
-		ColSums[i] = ColSums[i] + L[j][i] #pairwise add each interval length's normalized value to the column sums array
-		i++
+last if(count < t)
+i=0 #increment column sums
+	while(i<m+1){
+		ColSums[i] = ColSums[i] + L[j][i]
+            i++                           
 	}
 	c++
 }
-ColSums=ColSums/c #normalize column sums by the total number of k-mers above the threshold m
-Lmatrix = L[sorted[0:c]] #create a matrix from L with each row corresponding to a k-mer above the count threshold m, sorted by decreasing frequency, and each column corresponding to an interval length
-print(Lmatrix) #print the normalized, sorted, thresholded matrix to an output file
-heatmap(Lmatrix) #plot the matrix as a heatmap
+ColSums=ColSums/c #normalize col. sums by the tot. no. of k-mers above thresh. t
+Lmat = L[sorted[0:c]] #create a matrix from L with each row corresponding to a k-mer above the count threshold m, sorted by decreasing frequency, and each column corresponding to an interval length
+print(Lmat) #print the normalized, sorted, thresholded matrix
+heatmap(Lmat) #plot the matrix as a heatmap
 barplot(ColSums) #plot ColSums as a barplot to produce an NTR spectrum plot
+TopPeak = argmax(ColSums[0:l])+1 #report the most common repeat periodicity
+print(TopPeak)
 
-TopPeak = argmax(ColSums[0:l])+1
-return(TopPeak) #report the most common repeat periodicity
 ```
 
