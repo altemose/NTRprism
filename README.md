@@ -67,17 +67,17 @@ done
 
 ## Pseudocode
 ```
-NTRprism pseudocode
-Let S be a string of [ACGT] of length s.
-Let S[i:i+k-1] be the substring of S starting at 0-based index i, 
-    and having length k.
-Let K be a dictionary of k-mers, used to store the last observed
-    position of each k-mer.
-Let j be a particular k-mer of length k.
-Let L be a dictionary of k-mers, with each entry L[j] as an array of 
-    0s of length m+1 [0-based indexing], with m equal to the longest 
-    allowed repeat periodicity.
-Let t be the threshold for minimum observed k-mer count [default 2].
+#NTRprism pseudocode
+#Let S be a string of [ACGT] of length s.
+#Let S[i:i+k-1] be the substring of S starting at 0-based index i, 
+#    and having length k.
+#Let K be a dictionary of k-mers, used to store the last observed
+#    position of each k-mer.
+#Let j be a particular k-mer of length k.
+#Let L be a dictionary of k-mers, with each entry L[j] as an array of 
+#    0s of length m+1 [0-based indexing], with m equal to the longest 
+#    allowed repeat periodicity.
+#Let t be the threshold for minimum observed k-mer count [default 2].
 
 i=0
 while(i < s-k){ #loop through all substrings of length k in the sequence  
