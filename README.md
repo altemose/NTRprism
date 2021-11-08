@@ -121,7 +121,7 @@ Lmat = L[sorted[0:c]] #create a matrix from L with each row corresponding to a k
 print(Lmat) #print the normalized, sorted, thresholded matrix
 heatmap(Lmat) #plot the matrix as a heatmap
 barplot(ColSums) #plot ColSums as a barplot to produce an NTR spectrum plot
-TopPeak = argmax(ColSums[0:l])+1 #report the most common repeat periodicity
+TopPeak = argmax(ColSums[0:m-1])+1 #report the most common repeat periodicity (excluding m+1)
 print(TopPeak)
 
 ```
