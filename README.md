@@ -25,8 +25,8 @@ e.g. use samtools faidx to extract regions from a reference genome
 - note 3: using k=6 is sufficient to detect most peri/centromeric satellite periodicities in the human genome. Increasing k may improve sensitivity to very long periodicities but increases memory complexity.
 - note 4: increasing the maximum span increases runtime substantially. It can help to start by running with a large span and large bin size, then examining the heatmap and setting the max span to capture the largest substantial peaks.
 ```
-perl NTRprism_ProcessFasta_v0.21.pl test.fa NTRprism_TEST 1 5000 30 6 0
-perl NTRprism_ProcessFasta_v0.21.pl test.fa NTRprism_TEST 100 5000 30 6 0
+perl NTRprism_ProcessFasta_v0.22.pl test.fa NTRprism_TEST 1 5000 30 6 0
+perl NTRprism_ProcessFasta_v0.22.pl test.fa NTRprism_TEST 100 5000 30 6 0
 ```
 
 ### Step 3) make plots in R
